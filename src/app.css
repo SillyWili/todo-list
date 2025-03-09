@@ -1,3 +1,75 @@
+@font-face {
+  font-family: "SF Pro";
+  src: url("./assets/font/SF-Pro.woff") format("woff"),
+    url("./assets/font/SF-Pro.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --system-ui: "SF Pro", Roboto, "Segoe UI", Helvetica, Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  line-height: calc(1em + 0.5rem);
+}
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
 body {
-  background-color: #0a0a0a;
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--system-ui);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+header,
+footer {
+  display: flex;
+  justify-content: center;
+}
+
+/* Main Style */
+main {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  grid-template-rows: 1fr auto;
+}
+
+#content {
+  grid-column: 2/3;
+}
+
+#content div {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
 }
