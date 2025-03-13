@@ -1,50 +1,51 @@
-import manager from "../app.js";
+import { manager } from "../app.js";
 
 const content = document.querySelector("#content");
 const sidebar = document.querySelector("#sidebar");
 
-// export function viewProjects() {
-// const list = document.createElement("div");
-// manager.getAllList().forEach((item) => {
-//   const p = document.createElement("p");
-//   p.textContent = item.name;
-//   list.appendChild(p);
-// });
-
-// sidebar.appendChild(list);
-// }
-
-class dom {
+export class dom {
   constructor(container) {
     this.container = container;
   }
 
-  renderLists(manager) {
+  renderLists() {
     sidebar.innerHTML = "";
-    manager.getAllList().forEach((item) => {
+    manager.getAllList().filter((item) => {
       const p = document.createElement("p");
       p.textContent = item.name;
+      p.classList.add("list");
       sidebar.appendChild(p);
     });
   }
 
-  renderListContent(manager, name) {
+  renderListContent(name) {
     content.innerHTML = "";
-    manager.getSpecificList(name).reminders.forEach((key) => {
+    manager.getSpecificList(name).reminders.filter((key) => {
       const wrapper = document.createElement("div");
-      this.createElement("h3", key, "title", wrapper);
-      this.createElement("p", key, "description", wrapper);
-      this.createElement("p", key, "priority", wrapper);
-      this.createElement("p", key, "expiration", wrapper);
+      this.createReminderElement("h3", key, "title", wrapper);
+      this.createReminderElement("p", key, "description", wrapper);
+      this.createReminderElement("p", key, "priority", wrapper);
+      this.createReminderElement("p", key, "expiration", wrapper);
       content.appendChild(wrapper);
     });
   }
 
-  createElement(type, key, propriety, update) {
+  createReminderElement(type, key, propriety, update) {
     const item = document.createElement(type);
     item.textContent = key[propriety];
     update.appendChild(item);
   }
-}
 
-export { dom };
+  createIconElement(type, src, alt, update) {
+    const icon = document.createElement(type);
+    icon.src = src;
+    icon.setAttribute("alt", alt);
+    update.appendChild(icon);
+  }
+
+  createTextElement(type, content, update) {
+    const item = document.createElement(type);
+    item.textContent = content;
+    update.appendChild(item);
+  }
+}

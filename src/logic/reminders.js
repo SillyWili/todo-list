@@ -5,8 +5,5 @@ export class reminder {
     this.expiration = dueDate;
     this.priority = priority;
   }
-}
-
-function createNewReminder(title, description, dueDate, priority) {
-  return new reminder(title, description, dueDate, priority);
+  //? Use setters and getter to force the user to use specific option(or do it graphicly directly with a form)
 }

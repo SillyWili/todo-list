@@ -30,6 +30,7 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   font-family: var(--system-ui);
+  background-color: bisque;
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
@@ -57,6 +58,10 @@ footer {
   justify-content: center;
 }
 
+[src$=".svg"] {
+  width: 2em;
+}
+
 /* Main Style */
 main {
   display: grid;
@@ -64,7 +69,24 @@ main {
   grid-template-rows: 1fr auto;
 }
 
+#sidebar_btn {
+  padding: 1em;
+  grid-column: 1/2;
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+#content_btn {
+  padding: 1em;
+  grid-column: 2/3;
+  display: flex;
+  font-size: 1.1rem;
+  justify-content: center;
+}
+
 #content {
+  padding: 1em;
   grid-column: 2/3;
 }
 
@@ -72,4 +94,18 @@ main {
   display: flex;
   gap: 8px;
   align-items: baseline;
+}
+
+/* Sidebar style */
+#sidebar {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+#sidebar .list,
+[src$=".svg"] {
+  cursor: pointer;
+  user-select: none; /* Prevents text selection */
 }
