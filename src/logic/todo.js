@@ -12,6 +12,13 @@ export class TodoList {
     return this;
   }
 
+  removeReminder(title) {
+    this.reminders = this.reminders.filter(
+      (reminder) => reminder["title"] !== title
+    );
+    return this.reminders;
+  }
+
   getReminders() {
     return this.reminders;
   }
