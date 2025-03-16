@@ -10,7 +10,7 @@ export class dom {
 
   renderLists() {
     sidebar.innerHTML = "";
-    manager.getAllList().filter((item) => {
+    manager.getAllList().forEach((item) => {
       const p = document.createElement("p");
       p.textContent = item.name;
       p.classList.add("list");
@@ -20,14 +20,26 @@ export class dom {
 
   renderListContent(name) {
     content.innerHTML = "";
-    manager.getSpecificList(name).reminders.filter((key) => {
+    content.classList = name;
+    manager.getSpecificList(name).reminders.forEach((key) => {
       const wrapper = document.createElement("div");
+      wrapper.classList.add("reminder");
+      wrapper.id = key["id"];
       this.createReminderElement("h3", key, "title", wrapper);
       this.createReminderElement("p", key, "description", wrapper);
       this.createReminderElement("p", key, "priority", wrapper);
       this.createReminderElement("p", key, "expiration", wrapper);
+      this.createTextElement("button", "remove", wrapper);
       content.appendChild(wrapper);
     });
+  }
+
+  removeHiddenClass(item) {
+    item.classList.remove("hidden");
+  }
+
+  addHiddenClass(item) {
+    item.classList.add("hidden");
   }
 
   createReminderElement(type, key, propriety, update) {
@@ -36,10 +48,9 @@ export class dom {
     update.appendChild(item);
   }
 
-  createIconElement(type, src, alt, update) {
+  createIconElement(type, src, update) {
     const icon = document.createElement(type);
     icon.src = src;
-    icon.setAttribute("alt", alt);
     update.appendChild(icon);
   }
 

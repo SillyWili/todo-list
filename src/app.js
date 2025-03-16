@@ -14,10 +14,8 @@ const DefaultList = manager.getSpecificList("Default");
 manager.createNewList("Work");
 const Work = manager.getSpecificList("Work");
 
-DefaultList.addReminder("NO", "yes", "yes", "yes");
 DefaultList.addReminder("Yes", "yes", "yes", "yes");
-// DefaultList.removeReminder("Yes");
-// DefaultList.removeReminder("NO");
+DefaultList.addReminder("Yes", "yes", "yes", "yes");
 
 Work.addReminder("Yes", "yes", "yes", "yes");
 
@@ -30,9 +28,11 @@ DOM.renderListContent("Default");
 const sideBTN = document.querySelector("#sidebar_btn");
 const contentBTN = document.querySelector("#content_btn");
 
-DOM.createIconElement("img", AddIcon, "addIcon", sideBTN);
-DOM.createIconElement("img", AddIcon, "addIcon", contentBTN);
+DOM.createIconElement("img", AddIcon, sideBTN);
+DOM.createIconElement("img", AddIcon, contentBTN);
 DOM.createTextElement("p", "New List", sideBTN);
 
-reactive.changelist();
 reactive.addList();
+reactive.changelist();
+
+reactive.removeReminder();

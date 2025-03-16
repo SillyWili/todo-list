@@ -10,6 +10,8 @@ export class TodosManager {
     if (!this.list.find((item) => item.name === name)) {
       const newList = new TodoList(name);
       this.list.push(newList);
+    } else {
+      alert("You can't create a new list with an existing name");
     }
     return this.getSpecificList(name);
   }
@@ -20,5 +22,10 @@ export class TodosManager {
 
   getAllList() {
     return this.list;
+  }
+
+  getAllListId() {
+    console.log(this.list.id);
+    return this.list.id;
   }
 }

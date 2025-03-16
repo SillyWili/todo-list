@@ -30,7 +30,7 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   font-family: var(--system-ui);
-  background-color: bisque;
+  background-color: #9c3333;
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
@@ -60,6 +60,10 @@ footer {
 
 [src$=".svg"] {
   width: 2em;
+}
+
+.hidden {
+  display: none !important;
 }
 
 /* Main Style */

@@ -1,20 +1,23 @@
 import { reminder } from "./reminders.js";
 
 export class TodoList {
+  static nextId = 1;
+
   constructor(name) {
     this.name = name;
     this.reminders = [];
+    this.id = TodoList.nextId++;
   }
 
   addReminder(title, description, dueDate, priority) {
-    const item = new reminder(title, description, dueDate, priority);
+    const item = new reminder(title, description, dueDate, priority, this.name);
     this.reminders.push(item);
     return this;
   }
 
-  removeReminder(title) {
+  removeReminder(id) {
     this.reminders = this.reminders.filter(
-      (reminder) => reminder["title"] !== title
+      (reminder) => reminder.id !== parseInt(id)
     );
     return this.reminders;
   }
@@ -22,8 +25,4 @@ export class TodoList {
   getReminders() {
     return this.reminders;
   }
-}
-
-function createNewTodo(name) {
-  return new TodoList(name);
 }

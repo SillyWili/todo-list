@@ -1,8 +1,3 @@
-//* make so when you click the element from the sidebar it loads the reminders from that lists, and changes the background
-//* also have so i can modify the reminders description and so on?
-//* then make the button an icon and give it functionality
-//* get the elements using the querry selectors
-
 import { DOM, manager } from "../app.js";
 
 export class eventListeners {
@@ -11,6 +6,7 @@ export class eventListeners {
     this.sidebar = document.querySelector("#sidebar");
     this.sidebar_btn = document.querySelector("#sidebar_btn");
     this.content_btn = document.querySelector("#content_btn");
+    this.inputContainer = document.querySelector("#info");
   }
 
   changelist() {
@@ -19,14 +15,41 @@ export class eventListeners {
       item.addEventListener("click", () => {
         const htmlContent = item.innerHTML;
         DOM.renderListContent(htmlContent);
+        this.removeReminder();
       });
     });
   }
 
   addList() {
-    const addBtn = this.sidebar_btn.querySelector("img");
-    addBtn.addEventListener("click", () => {
-      console.log("ciao");
+    const addButton = this.sidebar_btn.querySelector("img");
+    addButton.addEventListener("click", () => {
+      DOM.removeHiddenClass(this.inputContainer);
+      const submitButton = this.inputContainer.querySelector("button");
+      const input = this.inputContainer.querySelector("input");
+
+      submitButton.addEventListener("click", () => {
+        manager.createNewList(input.value);
+        DOM.renderLists();
+        DOM.addHiddenClass(this.inputContainer);
+        this.changelist();
+      });
+    });
+  }
+
+  removeReminder() {
+    const reminders = this.content.querySelectorAll("div .reminder");
+    const listName = this.content.classList.value;
+    //! Codice Merda Fumante Nera
+    reminders.forEach((reminder) => {
+      //? Chi cazzo ha scritto sta merda
+      const removeButton = reminder.querySelector("button");
+      const id = reminder.id;
+      removeButton.addEventListener("click", () => {
+        //* Purtroppo io
+        const list = manager.getSpecificList(listName);
+        list.removeReminder(id);
+        reminder.innerHTML = "";
+      });
     });
   }
 }

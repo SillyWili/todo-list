@@ -1,9 +1,12 @@
 export class reminder {
-  constructor(title, description, dueDate, priority) {
+  static nextId = 1;
+
+  constructor(title, description, dueDate, priority, list) {
     this.title = title;
     this.description = description;
     this.expiration = dueDate;
     this.priority = priority;
+    this.list = list;
+    this.id = reminder.nextId++;
   }
-  //? Use setters and getter to force the user to use specific option(or do it graphicly directly with a form)
 }
