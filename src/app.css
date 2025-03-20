@@ -32,6 +32,7 @@ body {
   font-family: var(--system-ui);
   background-color: #9c3333;
   display: grid;
+  color: white;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
 }
