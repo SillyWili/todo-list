@@ -22,6 +22,10 @@ export class TodosManager {
     return this.list.find((item) => item.name === name);
   }
 
+  getSpecificListId(id) {
+    return this.list.find((item) => item.id === id);
+  }
+
   getAllList() {
     return this.list;
   }

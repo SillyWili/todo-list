@@ -9,25 +9,24 @@ export class dom {
     this.inputContainer = document.querySelector("#info");
   }
 
-  renderLists(lists, currentListId = null) {
+  renderLists(lists) {
     this.sidebarContainer.innerHTML = "";
     lists.forEach((item) => {
       const p = document.createElement("p");
       p.textContent = item.name;
       p.classList.add("list");
-      p.dataset.listId = item.id;
-
-      if ((currentListId = item.id)) {
-        p.classList.add("selected");
-      }
+      p.id = item.id;
 
       sidebar.appendChild(p);
     });
   }
 
   renderListContent(list) {
+    console.log(list);
+
     this.contentContainer.innerHTML = "";
     this.contentContainer.classList.value = list.name;
+    this.contentContainer.dataset.listId = list.id;
 
     const reminders = list.getReminders();
     reminders.forEach((reminder) => {

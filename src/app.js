@@ -26,4 +26,4 @@ domHandler.renderLists(manager.getAllList());
 
 export { manager, domHandler };
 
-const eventsHandler = new EventHandler(domHandler, manager);
+const eventsHandler = new EventHandler();
