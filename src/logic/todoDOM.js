@@ -1,5 +1,3 @@
-import { manager } from "../app.js";
-
 export class dom {
   constructor() {
     this.contentContainer = document.querySelector("#content");

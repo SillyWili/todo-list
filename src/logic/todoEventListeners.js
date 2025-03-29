@@ -1,4 +1,5 @@
 import { domHandler, manager } from "../app.js";
+// import { TodoList } from "../logic/todo.js";
 
 export class EventHandler {
   constructor() {
@@ -22,6 +23,7 @@ export class EventHandler {
   setupAllEventListeners() {
     this.setupListClickHandlers();
     this.setupAddListHandler();
+    this.setupAddReminderHandler();
     this.setupReminderDeleteHandlers();
   }
 
@@ -44,8 +46,10 @@ export class EventHandler {
   setupAddListHandler() {
     const addButton = this.sidebarButtonContainer.querySelector("img");
     const inputContainer = document.querySelector("#info");
+    const dialog = inputContainer.querySelector("dialog");
 
     addButton.addEventListener("click", () => {
+      dialog.showModal();
       this.dom.removeHiddenClass(inputContainer);
 
       const submitButton = inputContainer.querySelector("button");
@@ -53,12 +57,52 @@ export class EventHandler {
         const input = inputContainer.querySelector("input");
         this.manager.createNewList(input.value);
         this.dom.renderLists(this.manager.getAllList());
+
+        dialog.close();
         this.dom.addHiddenClass(inputContainer);
+
 
         // Remove this one-time handler after use
         submitButton.removeEventListener("click", submitHandler);
       };
 
+      submitButton.addEventListener("click", submitHandler);
+    });
+
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "escape") {
+        this.dom.addHiddenClass(inputContainer); // dosent add the hidden class
+        dialog.close();
+      }
+    });
+  }
+
+  setupAddReminderHandler() {
+    const addButton = this.contentButtonContainer.querySelector("img");
+    const inputContainer = document.querySelector("#info2");
+    const dialog = inputContainer.querySelector("dialog");
+
+    addButton.addEventListener("click", () => {
+      dialog.showModal();
+      this.dom.removeHiddenClass(inputContainer);
+
+      const submitButton = inputContainer.querySelector("button");
+      const submitHandler = () => {
+        //* Gets specific list id
+        const selectedListId = parseInt(this.contentContainer.dataset.listId);
+
+        const list = this.manager.getSpecificListId(selectedListId);
+        const input = inputContainer.querySelector("input");
+
+        list.addReminder(input.value, "", "", "");
+        this.dom.renderListContent(list);
+        this.dom.addHiddenClass(inputContainer);
+
+        this.setupReminderDeleteHandlers();
+
+        submitButton.removeEventListener("click", submitHandler);
+        dialog.close();
+      };
       submitButton.addEventListener("click", submitHandler);
     });
   }
