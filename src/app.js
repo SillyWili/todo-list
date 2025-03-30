@@ -7,8 +7,8 @@ import { EventHandler } from "./logic/todoEventListeners.js";
 const manager = new TodosManager();
 const domHandler = new dom();
 
-const sideBTN = document.querySelector("#sidebar_btn");
-const contentBTN = document.querySelector("#content_btn");
+const sideBTN = document.querySelector("#sidebarButtonContainer");
+const contentBTN = document.querySelector("#contentButtonContainer");
 
 const DefaultList = manager.getSpecificList("Default");
 manager.createNewList("Work");

@@ -9,9 +9,13 @@ export class EventHandler {
 
     //* Store references to DOM elements
     this.sidebarContainer = document.querySelector("#sidebar");
-    this.sidebarButtonContainer = document.querySelector("#sidebar_btn");
+    this.sidebarButtonContainer = document.querySelector(
+      "#sidebarButtonContainer"
+    );
     this.contentContainer = document.querySelector("#content");
-    this.contentButtonContainer = document.querySelector("#content_btn");
+    this.contentButtonContainer = document.querySelector(
+      "#contentButtonContainer"
+    );
 
     //* Renders the default list at load
     this.dom.renderListContent(this.defaultList);
@@ -45,58 +49,55 @@ export class EventHandler {
 
   setupAddListHandler() {
     const addButton = this.sidebarButtonContainer.querySelector("img");
-    const inputContainer = document.querySelector("#info");
-    const dialog = inputContainer.querySelector("dialog");
+    const dialog = document.querySelector("dialog#list");
+
+    const submitButton = dialog.querySelector("button#submit");
+    const closeButton = dialog.querySelector("button#close");
+    
+    const input = dialog.querySelector("input");
+
+    const submitHandler = () => {
+      this.manager.createNewList(input.value);
+      //* Clears the input text
+      input.value = "";
+
+      this.dom.renderLists(this.manager.getAllList());
+
+      dialog.close();
+    };
+
+    const closeHandler = () => {
+      //* Clears the input text
+      input.value = "";
+
+      dialog.close();
+    };
 
     addButton.addEventListener("click", () => {
       dialog.showModal();
-      this.dom.removeHiddenClass(inputContainer);
-
-      const submitButton = inputContainer.querySelector("button");
-      const submitHandler = () => {
-        const input = inputContainer.querySelector("input");
-        this.manager.createNewList(input.value);
-        this.dom.renderLists(this.manager.getAllList());
-
-        dialog.close();
-        this.dom.addHiddenClass(inputContainer);
-
-
-        // Remove this one-time handler after use
-        submitButton.removeEventListener("click", submitHandler);
-      };
 
       submitButton.addEventListener("click", submitHandler);
-    });
-
-    dialog.addEventListener("keydown", (event) => {
-      if (event.key === "escape") {
-        this.dom.addHiddenClass(inputContainer); // dosent add the hidden class
-        dialog.close();
-      }
+      closeButton.addEventListener("click", closeHandler);
     });
   }
 
   setupAddReminderHandler() {
     const addButton = this.contentButtonContainer.querySelector("img");
-    const inputContainer = document.querySelector("#info2");
-    const dialog = inputContainer.querySelector("dialog");
+    const dialog = document.querySelector("dialog#reminders");
 
     addButton.addEventListener("click", () => {
       dialog.showModal();
-      this.dom.removeHiddenClass(inputContainer);
 
-      const submitButton = inputContainer.querySelector("button");
+      const submitButton = dialog.querySelector("button#submit");
       const submitHandler = () => {
         //* Gets specific list id
         const selectedListId = parseInt(this.contentContainer.dataset.listId);
 
         const list = this.manager.getSpecificListId(selectedListId);
-        const input = inputContainer.querySelector("input");
+        const input = dialog.querySelector("input");
 
         list.addReminder(input.value, "", "", "");
         this.dom.renderListContent(list);
-        this.dom.addHiddenClass(inputContainer);
 
         this.setupReminderDeleteHandlers();
 

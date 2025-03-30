@@ -10,25 +10,27 @@
     <main>
       <div id="sidebar"></div>
       <div id="content"></div>
-      <div id="sidebar_btn"></div>
-      <div id="content_btn"></div>
+      <div id="sidebarButtonContainer"></div>
+      <div id="contentButtonContainer"></div>
     </main>
-    <div id="info" class="hidden">
-      <dialog>
+    <dialog id="list">
+      <div>
         <label for="list">List name</label>
         <input type="text" id="list" name="list" />
-        <button>+</button>
-      </dialog>
-    </div>
-    <div id="info2" class="hidden">
-      <dialog>
-        <label for="title">Title</label>
-        <input type="text" id="list" name="title" required />
-        <label for="description">Description</label>
-        <textarea name="description" id="description"></textarea>
-        <button autofocus>+</button>
-      </dialog>
-    </div>
+        <div class="buttons">
+          <button id="submit">+</button>
+          <button id="close">x</button>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog id="reminders">
+      <label for="title">Title</label>
+      <input type="text" id="list" name="title" required />
+      <label for="description">Description</label>
+      <textarea name="description" id="description"></textarea>
+      <button id="submit">+</button>
+    </dialog>
     <footer>Cactus</footer>
   </body>
 </html>

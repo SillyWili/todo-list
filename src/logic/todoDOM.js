@@ -2,8 +2,12 @@ export class dom {
   constructor() {
     this.contentContainer = document.querySelector("#content");
     this.sidebarContainer = document.querySelector("#sidebar");
-    this.sidebarButtonContainer = document.querySelector("#sidebar_btn");
-    this.contentButtonContainer = document.querySelector("#content_btn");
+    this.sidebarButtonContainer = document.querySelector(
+      "#sidebarButtonContainer"
+    );
+    this.contentButtonContainer = document.querySelector(
+      "#contentButtonContainer"
+    );
     this.inputContainer = document.querySelector("#info");
   }
 

@@ -30,7 +30,7 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   font-family: var(--system-ui);
-  background-color: #9c3333;
+  background-color: #5e3737;
   display: grid;
   color: white;
   grid-template-rows: auto 1fr auto;
@@ -74,7 +74,7 @@ main {
   grid-template-rows: 1fr auto auto;
 }
 
-#sidebar_btn {
+#sidebarButtonContainer {
   padding: 1em;
   grid-column: 1/2;
   display: flex;
@@ -82,16 +82,12 @@ main {
   font-size: 1.1rem;
 }
 
-#content_btn {
+#contentButtonContainer {
   padding: 1em;
   grid-column: 2/3;
   display: flex;
   font-size: 1.1rem;
   justify-content: center;
-}
-
-#info {
-  grid-column: 1/2;
 }
 
 #content {
@@ -122,15 +118,28 @@ main {
 /* Dialog style */
 dialog {
   position: fixed;
-  left: 50%;
   top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  margin: 0;
+  border: none;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  text-align: center;
+}
+
+dialog div {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 8px;
+}
+
+dialog .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
 dialog button {
-  padding: 2em;
+  padding: 1em 3em;
 }
