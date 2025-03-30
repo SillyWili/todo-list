@@ -31,6 +31,7 @@ export class EventHandler {
     this.setupReminderDeleteHandlers();
   }
 
+  //* Switch between lists
   setupListClickHandlers() {
     this.sidebarContainer.addEventListener("click", (event) => {
       const listItem = event.target.closest(".list");
@@ -38,22 +39,26 @@ export class EventHandler {
 
       const listId = parseInt(listItem.id);
 
+      //* Gets the specific list from the array
       const selectedList = this.manager.getSpecificListId(listId);
 
       if (selectedList) {
         this.dom.renderListContent(selectedList);
+
+        //* Adds listeners for the remove buttons
         this.setupReminderDeleteHandlers();
       }
     });
   }
 
+  //* Add New List
   setupAddListHandler() {
     const addButton = this.sidebarButtonContainer.querySelector("img");
     const dialog = document.querySelector("dialog#list");
 
     const submitButton = dialog.querySelector("button#submit");
     const closeButton = dialog.querySelector("button#close");
-    
+
     const input = dialog.querySelector("input");
 
     const submitHandler = () => {
@@ -61,6 +66,7 @@ export class EventHandler {
       //* Clears the input text
       input.value = "";
 
+      //* Refreshes the lists in the DOM
       this.dom.renderLists(this.manager.getAllList());
 
       dialog.close();
@@ -81,33 +87,52 @@ export class EventHandler {
     });
   }
 
+  //* Add New Reminder
   setupAddReminderHandler() {
     const addButton = this.contentButtonContainer.querySelector("img");
     const dialog = document.querySelector("dialog#reminders");
+    const form = dialog.querySelector("form");
+    const closeButton = dialog.querySelector("button#close");
 
     addButton.addEventListener("click", () => {
       dialog.showModal();
-
-      const submitButton = dialog.querySelector("button#submit");
-      const submitHandler = () => {
-        //* Gets specific list id
-        const selectedListId = parseInt(this.contentContainer.dataset.listId);
-
-        const list = this.manager.getSpecificListId(selectedListId);
-        const input = dialog.querySelector("input");
-
-        list.addReminder(input.value, "", "", "");
-        this.dom.renderListContent(list);
-
-        this.setupReminderDeleteHandlers();
-
-        submitButton.removeEventListener("click", submitHandler);
-        dialog.close();
-      };
-      submitButton.addEventListener("click", submitHandler);
     });
+
+    closeButton.addEventListener("click", (event) => {
+      event.preventDefault();
+      form.reset();
+      dialog.close();
+    });
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      //* Gets specific id and list
+      const selectedListId = parseInt(this.contentContainer.dataset.listId);
+      const list = this.manager.getSpecificListId(selectedListId);
+
+      //* Creates a new reminder item with the form values
+      createReminder(event.target, list);
+
+      //* Renders all the reminders
+      this.dom.renderListContent(list);
+
+      form.reset();
+      this.setupReminderDeleteHandlers();
+      dialog.close();
+    });
+
+    function createReminder(form, list) {
+      list.addReminder(
+        form[0].value,
+        form[1].value,
+        form[2].value,
+        form[3].value
+      );
+    }
   }
 
+  //* Remove Button for the reminders
   setupReminderDeleteHandlers() {
     const reminders = document.querySelectorAll("div .reminder");
     const listId = parseInt(this.contentContainer.dataset.listId);
