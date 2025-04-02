@@ -9,6 +9,11 @@
 :root {
   --system-ui: "SF Pro", Roboto, "Segoe UI", Helvetica, Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --submit-color: #004615;
+  --cancel-color: #6f101b;
+  --low-priority-color: #009432;
+  --medium-priority-color: #ff9400;
+  --high-priority-color: #e2162a;
 }
 
 *,
@@ -70,7 +75,7 @@ footer {
 /* Main Style */
 main {
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 0.5fr 3fr;
   grid-template-rows: 1fr auto auto;
 }
 
@@ -96,9 +101,41 @@ main {
 }
 
 #content div {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 0.2fr;
   gap: 8px;
   align-items: baseline;
+}
+
+#content div p:nth-child(2),
+#content div h3 {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#content div h3 {
+  font-size: 1.75rem;
+}
+
+#content h4 {
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+[priority="HIGH"] h4 {
+  color: var(--high-priority-color);
+}
+
+[priority="LOW"] h4 {
+  color: var(--low-priority-color);
+}
+
+[priority="MEDIUM"] h4 {
+  color: var(--medium-priority-color);
 }
 
 /* Sidebar style */
@@ -106,13 +143,39 @@ main {
   padding: 1em;
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 40px;
 }
 
-#sidebar .list,
-[src$=".svg"] {
+/* Icon style */
+
+#sidebarButtonContainer [src$=".svg"],
+#contentButtonContainer [src$=".svg"] {
   cursor: pointer;
   user-select: none; /* Prevents text selection */
+  filter: brightness(0) invert(1);
+}
+
+#content [src$=".svg"],
+#sidebar h3 {
+  cursor: pointer;
+  user-select: none;
+}
+
+#sidebar [src$=".svg"] {
+  user-select: none;
+  filter: brightness(0) invert(1);
+}
+#sidebar div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reminder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 /* Dialog style */
@@ -139,6 +202,21 @@ dialog .buttons {
   display: flex;
   flex-direction: row;
   justify-content: center;
+}
+
+dialog .buttons button {
+  border-radius: 8px;
+  border: 1px solid black;
+}
+
+dialog .buttons button:last-child:hover {
+  background-color: var(--cancel-color);
+  color: white;
+}
+
+dialog .buttons button:first-child:hover {
+  background-color: var(--submit-color);
+  color: white;
 }
 
 dialog button {

@@ -138,7 +138,7 @@ export class EventHandler {
     const listId = parseInt(this.contentContainer.dataset.listId);
 
     reminders.forEach((reminder) => {
-      const removeButton = reminder.querySelector("button");
+      const removeButton = reminder.querySelector("img");
       const id = reminder.id;
 
       removeButton.addEventListener("click", () => {

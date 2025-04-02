@@ -17,8 +17,8 @@ const Work = manager.getSpecificList("Work");
 DefaultList.addReminder("Yes", "yes", "yes", "yes");
 DefaultList.addReminder("Yes", "yes", "yes", "yes");
 
-domHandler.createIconElement("img", AddIcon, sideBTN);
-domHandler.createIconElement("img", AddIcon, contentBTN);
+domHandler.createIconElement(AddIcon, sideBTN);
+domHandler.createIconElement(AddIcon, contentBTN);
 domHandler.createTextElement("p", "New List", sideBTN);
 
 Work.addReminder("Yes", "yes", "yes", "yes");
