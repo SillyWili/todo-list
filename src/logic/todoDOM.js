@@ -1,5 +1,6 @@
 import listIcon from "../assets/icons/list-box-outline.svg";
 import deleteIcon from "../assets/icons/delete.svg";
+import { format } from "date-fns";
 
 export class dom {
   constructor() {
@@ -44,7 +45,7 @@ export class dom {
       reminderDiv.id = reminder.id;
       this.createReminderElement("h3", reminder, "title", reminderDiv);
       this.createReminderElement("p", reminder, "description", reminderDiv);
-      this.createReminderElement("p", reminder, "expiration", reminderDiv);
+      this.createExpirationDate("p", reminder, "expiration", reminderDiv);
       this.createReminderElement("h4", reminder, "priority", reminderDiv);
       this.createIconElement(deleteIcon, reminderDiv);
       content.appendChild(reminderDiv);
@@ -72,14 +73,27 @@ export class dom {
     }
   }
 
-  createReminderElement(type, key, propriety, update, attribute) {
+  createReminderElement(type, object, propriety, container, attribute) {
     const item = document.createElement(type);
-    item.textContent = key[propriety];
+    item.textContent = object[propriety];
     if (attribute === "" || attribute === undefined) {
-      update.appendChild(item);
+      container.appendChild(item);
     } else {
       item.classList.add(attribute);
-      update.appendChild(item);
+      container.appendChild(item);
+    }
+  }
+
+  createExpirationDate(type, object, propriety, container) {
+    const item = document.createElement(type);
+    console.log(object[propriety]);
+    if (object[propriety] === "") {
+      item.textContent = "No due Date";
+      container.appendChild(item);
+    } else {
+      const result = format(object[propriety], "PPPp");
+      item.textContent = result;
+      container.appendChild(item);
     }
   }
 

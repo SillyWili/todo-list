@@ -14,14 +14,14 @@ const DefaultList = manager.getSpecificList("Default");
 manager.createNewList("Work");
 const Work = manager.getSpecificList("Work");
 
-DefaultList.addReminder("Yes", "yes", "yes", "yes");
-DefaultList.addReminder("Yes", "yes", "yes", "yes");
+DefaultList.addReminder("Yes", "yes", "2024", "LOW");
+DefaultList.addReminder("Yes", "yes", "2019", "MEDIUM");
 
 domHandler.createIconElement(AddIcon, sideBTN);
 domHandler.createIconElement(AddIcon, contentBTN);
 domHandler.createTextElement("p", "New List", sideBTN);
 
-Work.addReminder("Yes", "yes", "yes", "yes");
+Work.addReminder("Yes", "yes", "2016", "HIGH");
 domHandler.renderLists(manager.getAllList());
 
 export { manager, domHandler };
