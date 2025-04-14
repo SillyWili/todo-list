@@ -2,13 +2,17 @@ import { reminder } from "./reminders.js";
 
 export class TodoList {
   static nextId = 1;
+
   static fromJson(title, reminders, id) {
     const todo = new TodoList();
 
+    //* Assigns the right parameters to every todo
     todo.name = title;
     todo.reminders = reminders;
     todo.id = id;
 
+    //* Loads the reminders id so they don't duplicate
+    reminder.loadNextId();
     return todo;
   }
 

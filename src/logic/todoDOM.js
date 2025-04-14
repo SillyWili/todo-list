@@ -16,8 +16,6 @@ export class dom {
   }
 
   renderLists(lists) {
-    console.log(lists);
-
     this.sidebarContainer.innerHTML = "";
     lists.forEach((item) => {
       const div = document.createElement("div");
@@ -33,8 +31,6 @@ export class dom {
   }
 
   renderListContent(list) {
-    console.log(list);
-
     this.contentContainer.innerHTML = "";
     this.contentContainer.classList.value = list.name;
     this.contentContainer.dataset.listId = list.id;

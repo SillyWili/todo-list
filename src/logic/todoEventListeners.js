@@ -1,5 +1,4 @@
 import { domHandler, manager } from "../app.js";
-// import { TodoList } from "../logic/todo.js";
 
 export class EventHandler {
   constructor() {
@@ -140,14 +139,14 @@ export class EventHandler {
   setupReminderDeleteHandlers() {
     this.contentContainer.addEventListener("click", (event) => {
       const removeButton = event.target.closest(".delete-btn");
-      const reminder = removeButton.closest(".reminder");
-
-      if (!reminder) return;
       if (!removeButton) return;
 
-      const id = reminder.id;
-      const listId = parseInt(this.contentContainer.dataset.listId);
-      const list = this.manager.getSpecificListId(listId);
+      const reminder = removeButton.closest(".reminder");
+      if (!reminder) return;
+
+      const id = reminder.id; //* Gets the reminder id
+      const listId = parseInt(this.contentContainer.dataset.listId); //* Gets the list id
+      const list = this.manager.getSpecificListId(listId); //* Gets the specific list from where deletes the reminder
 
       list.removeReminder(id);
       reminder.remove(); // Properly remove from DOM
@@ -157,21 +156,3 @@ export class EventHandler {
     });
   }
 }
-
-// const reminders = document.querySelectorAll("div .reminder");
-//     const listId = parseInt(this.contentContainer.dataset.listId);
-
-//     reminders.forEach((reminder) => {
-//       const id = reminder.id;
-
-//       this.contentContainer.addEventListener("click", (event) => {
-//         const removeButton = event.target.closest("img");
-//         if (!removeButton) return;
-//         const list = this.manager.getSpecificListId(listId);
-//         list.removeReminder(id);
-
-//         reminder.remove(); // Properly remove from DOM
-//         //* Saves the manager.list to localStorage
-//         localStorage.setItem("array", JSON.stringify(manager.list));
-//       });
-//     });
