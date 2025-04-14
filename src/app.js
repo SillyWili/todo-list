@@ -15,6 +15,7 @@ const app = (function () {
       domHandler.renderLists(manager.getAllList());
     } else {
       manager = new TodosManager();
+      domHandler.renderLists(manager.getAllList());
     }
   }
 
