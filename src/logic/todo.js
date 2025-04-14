@@ -2,6 +2,15 @@ import { reminder } from "./reminders.js";
 
 export class TodoList {
   static nextId = 1;
+  static fromJson(title, reminders, id) {
+    const todo = new TodoList();
+
+    todo.name = title;
+    todo.reminders = reminders;
+    todo.id = id;
+
+    return todo;
+  }
 
   constructor(name) {
     this.name = name;

@@ -46,7 +46,6 @@ export class EventHandler {
         this.dom.renderListContent(selectedList);
 
         //* Adds listeners for the remove buttons
-        this.setupReminderDeleteHandlers();
       }
     });
   }
@@ -68,6 +67,9 @@ export class EventHandler {
 
       //* Refreshes the lists in the DOM
       this.dom.renderLists(this.manager.getAllList());
+
+      //* Saves the manager.list to localStorage
+      localStorage.setItem("array", JSON.stringify(manager.list));
 
       dialog.close();
     };
@@ -117,8 +119,10 @@ export class EventHandler {
       //* Renders all the reminders
       this.dom.renderListContent(list);
 
+      //* Saves the manager.list to localStorage
+      localStorage.setItem("array", JSON.stringify(manager.list));
+
       form.reset();
-      this.setupReminderDeleteHandlers();
       dialog.close();
     });
 
@@ -134,18 +138,40 @@ export class EventHandler {
 
   //* Remove Button for the reminders
   setupReminderDeleteHandlers() {
-    const reminders = document.querySelectorAll("div .reminder");
-    const listId = parseInt(this.contentContainer.dataset.listId);
+    this.contentContainer.addEventListener("click", (event) => {
+      const removeButton = event.target.closest(".delete-btn");
+      const reminder = removeButton.closest(".reminder");
 
-    reminders.forEach((reminder) => {
-      const removeButton = reminder.querySelector("img");
+      if (!reminder) return;
+      if (!removeButton) return;
+
       const id = reminder.id;
+      const listId = parseInt(this.contentContainer.dataset.listId);
+      const list = this.manager.getSpecificListId(listId);
 
-      removeButton.addEventListener("click", () => {
-        const list = this.manager.getSpecificListId(listId);
-        list.removeReminder(id);
-        reminder.remove(); // Properly remove from DOM
-      });
+      list.removeReminder(id);
+      reminder.remove(); // Properly remove from DOM
+
+      //* Saves the manager.list to localStorage
+      localStorage.setItem("array", JSON.stringify(manager.list));
     });
   }
 }
+
+// const reminders = document.querySelectorAll("div .reminder");
+//     const listId = parseInt(this.contentContainer.dataset.listId);
+
+//     reminders.forEach((reminder) => {
+//       const id = reminder.id;
+
+//       this.contentContainer.addEventListener("click", (event) => {
+//         const removeButton = event.target.closest("img");
+//         if (!removeButton) return;
+//         const list = this.manager.getSpecificListId(listId);
+//         list.removeReminder(id);
+
+//         reminder.remove(); // Properly remove from DOM
+//         //* Saves the manager.list to localStorage
+//         localStorage.setItem("array", JSON.stringify(manager.list));
+//       });
+//     });

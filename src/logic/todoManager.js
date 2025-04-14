@@ -1,6 +1,16 @@
 import { TodoList } from "./todo.js";
 
 export class TodosManager {
+  static fromJson(parsedList) {
+    const manager = new TodosManager();
+    manager.list = [];
+    parsedList.forEach((todo) => {
+      const singleList = TodoList.fromJson(todo.name, todo.reminders, todo.id);
+      manager.list.push(singleList);
+    });
+    return manager;
+  }
+
   constructor() {
     this.list = [];
     this.createNewList("Default");
