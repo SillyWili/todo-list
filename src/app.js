@@ -33,6 +33,6 @@ domHandler.createIconElement(AddIcon, sideBTN);
 domHandler.createIconElement(AddIcon, contentBTN);
 domHandler.createTextElement("p", "New List", sideBTN);
 
-const eventsHandler = new EventHandler();
+new EventHandler();
 
 export { manager, domHandler };
